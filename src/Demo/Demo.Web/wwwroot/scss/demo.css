@@ -1,0 +1,21 @@
+﻿h1 {
+  color: red;
+}
+
+.primarybtn {
+  width: 200 px;
+}
+
+.secondbtn {
+  width: 200 px;
+}
+
+div {
+  background-color: red;
+}
+div button {
+  background-color: green;
+}
+div button:hover {
+  background-color: blue;
+}
