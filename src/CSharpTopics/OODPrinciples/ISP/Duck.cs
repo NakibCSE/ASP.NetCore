@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OODPrinciples.ISP
 {
-    public class Duck : IBird
+    public class Duck : IWalkable, ISwimable, IFlyable
     {
         public void Fly()
         {

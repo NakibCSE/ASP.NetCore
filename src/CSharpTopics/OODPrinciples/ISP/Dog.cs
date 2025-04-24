@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace OODPrinciples.ISP
 {
-    internal interface Dog
+    public class Dog : IWalkable, ISwimable
     {
+        public void Swim()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Walk()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

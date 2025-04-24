@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace OODPrinciples.ISP
 {
-    internal interface IFlyable
+    public interface IFlyable
     {
+        void Fly();
     }
 }

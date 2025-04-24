@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OODPrinciples.ISP
+namespace OODPrinciples.Composition
 {
-    public interface IBird
+    public class Laptop : Product
     {
-        void Fly();
-        void Walk();
-        void Swim();
 
     }
 }
