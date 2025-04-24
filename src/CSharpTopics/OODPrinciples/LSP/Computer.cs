@@ -8,7 +8,7 @@ namespace OODPrinciples.LSP
 {
     public class Computer
     {
-        public double CPUSpeed { get; set; }
+        public double ProcessorSpeed { get; set; }
         public double RAMSize { get; set; }
         public string BrandName { get; set; }
         public void Start()
