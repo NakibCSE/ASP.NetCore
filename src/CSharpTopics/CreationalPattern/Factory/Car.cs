@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CreationalPattern.Factory
 {
-    internal class Car
+    public class Car
     {
+        public string Model { get; set; }
+        public string Color { get; set; }
+        public double Speed { get; set; }
     }
 }
