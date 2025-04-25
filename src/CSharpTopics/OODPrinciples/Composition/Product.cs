@@ -8,7 +8,12 @@ namespace OODPrinciples.Composition
 {
     public class Product
     {
-        public double Price { get; set; }
+        private double _price;
+        public double Price
+        {
+            get { return _price; }
+            set { if (value > 0) _price = value; }
+        }
 
         public double CalculatePriceAfterDiscount(double discount)
         {
