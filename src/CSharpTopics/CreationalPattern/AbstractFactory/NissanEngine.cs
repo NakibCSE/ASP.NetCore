@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CreationalPattern.AbstractFactory
 {
-    internal class NissanEngine
+    public class NissanEngine : Engine
     {
     }
 }

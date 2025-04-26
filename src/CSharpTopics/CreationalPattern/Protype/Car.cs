@@ -9,7 +9,7 @@ namespace CreationalPattern.Protype
     public class Car
     {
         public string Model { get; set; }
-        public string Speed { get; set; }
+        public double Speed { get; set; }
         public double Fuel { get; set; }
 
         public Car Copy()

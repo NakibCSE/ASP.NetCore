@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CreationalPattern.AbstractFactory
 {
-    public class ToyotaHeadLightFactory
+    public class ToyotaHeadLightFactory : HeadLightFactory
     {
         public override HeadLight CreateHeadLight()
         {

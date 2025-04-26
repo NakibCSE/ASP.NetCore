@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CreationalPattern.AbstractFactory
 {
-    internal class HeadLight
+    public class HeadLight
     {
+
     }
 }

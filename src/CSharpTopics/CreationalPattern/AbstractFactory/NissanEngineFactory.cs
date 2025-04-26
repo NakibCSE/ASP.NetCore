@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CreationalPattern.AbstractFactory
 {
-    internal class NissanEngineFactory
+    public class NissanEngineFactory : EngineFactory
     {
+        public override Engine CreateEngine()
+        {
+            return new NissanEngine();
+        }
     }
 }
