@@ -5,5 +5,7 @@
         public Guid ID { get; set; }
         public string Title { get; set; }
         public Guid AuthorID { get; set; }
+
+        public DateTime PublishDate { get; set; }
     }
 }
