@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Demo.Web;
 using Serilog;
 using Serilog.Events;
+using System.Reflection;
+using Demo.Infrastructure;
 
 #region Bootstrap logger
 var configuration = new ConfigurationBuilder()
@@ -25,12 +27,13 @@ try
 
     // Add services to the container.
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    var migrationAssembly = Assembly.GetExecutingAssembly();
 
     #region Autofac configuration
     builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()); //Added autofac in dot net
     builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     {
-        containerBuilder.RegisterModule(new WebModule()); //Eikane onek kichu likte hbe tai amra areka file e eikaner sob kichu rakte pari, module hisabe.
+        containerBuilder.RegisterModule(new WebModule(connectionString, migrationAssembly?.FullName)); //Eikane onek kichu likte hbe tai amra areka file e eikaner sob kichu rakte pari, module hisabe.
     });
     #endregion
 
@@ -51,7 +54,7 @@ try
     #endregion
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
+        options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

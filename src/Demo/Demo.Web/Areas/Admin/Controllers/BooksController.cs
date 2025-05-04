@@ -1,4 +1,6 @@
-﻿using Demo.Web.Areas.Admin.Models;
+﻿using Demo.Domain.Entities;
+using Demo.Domain.Services;
+using Demo.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Web.Areas.Admin.Controllers
@@ -6,6 +8,11 @@ namespace Demo.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class BooksController : Controller
     {
+        private readonly IBookService _bookService;
+        public BooksController(IBookService bookService) {
+        
+            _bookService = bookService;
+        }
         public IActionResult Index()
         {
             return View();
@@ -21,7 +28,7 @@ namespace Demo.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                _bookService.AddBook(new Book { Title = model.Title});
             }
             return View(model);
         }

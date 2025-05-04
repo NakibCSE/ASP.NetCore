@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Demo.Domain.Repositories
 {
-    public interface IBookRepository
-    {
+    public interface IBookRepository : IRepository<Book, Guid>
+    {        
         List<Book> GetLatestBooks();
     }
 }

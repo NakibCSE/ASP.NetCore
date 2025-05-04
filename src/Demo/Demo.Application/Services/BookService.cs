@@ -1,4 +1,5 @@
-﻿using Demo.Domain.Entities;
+﻿using Demo.Domain;
+using Demo.Domain.Entities;
 using Demo.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,13 @@ namespace Demo.Application.Services
 {
     public class BookService : IBookService
     {
+        private readonly IApplicationUnitOfWork _applicationUnitOfWork;
+        public BookService(IApplicationUnitOfWork applicationUnitOfWork) { 
+            _applicationUnitOfWork = applicationUnitOfWork;
+        }
         public void AddBook(Book book)
         {
-            throw new NotImplementedException();
+            _applicationUnitOfWork.BookRepository.Add(book);
         }
     }
 }

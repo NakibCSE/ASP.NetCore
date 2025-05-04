@@ -11,17 +11,12 @@ using System.Threading.Tasks;
 
 namespace Demo.Infrastructure
 {
-    public class UnitOfWork : IUnitOfWork
+    public abstract class UnitOfWork : IUnitOfWork
     {
         private readonly DbContext _dbContext;
-
-        public IBookRepository BookRepository { get; private set; }
-        public IAuthorRepository AuthorRepository { get; private set; }
         public UnitOfWork(DbContext context)
         {
             _dbContext = context;
-            BookRepository = new BookRepository((ApplicationDbContext)context);
-            AuthorRepository = new AuthorRepository((ApplicationDbContext)context);
         }
         public void Save()
         {

@@ -16,6 +16,12 @@ namespace Demo.Infrastructure.Repository
         {
             _dbContext = context;
         }
+
+        public void AddBook(Book book)
+        {
+            _dbContext.Books.Add(book);
+        }
+
         public List<Book> GetLatestBooks()
         {
             DateTime date = DateTime.Now.AddDays(-365);
