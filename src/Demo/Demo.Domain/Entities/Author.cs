@@ -9,5 +9,6 @@ namespace Demo.Domain.Entities
     public class Author : IEntity<Guid>
     {
         public Guid ID { get; set; }
+        public string Name { get; set; }
     }
 }

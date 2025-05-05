@@ -41,6 +41,9 @@ namespace Demo.Web
             builder.RegisterType<BookService>().As<IBookService>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<AuthorService>().As<IAuthorService>()
+               .InstancePerLifetimeScope();
+
             base.Load(builder);
         }
     }
