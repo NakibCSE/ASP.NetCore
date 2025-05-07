@@ -9,6 +9,7 @@ using Serilog;
 using Serilog.Events;
 using System.Reflection;
 using Demo.Infrastructure;
+using Autofac.Core;
 
 #region Bootstrap logger
 var configuration = new ConfigurationBuilder()
@@ -51,6 +52,12 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(builder.Configuration)
     );
+    #endregion
+
+    #region mediatR configuration 
+    builder.Services.AddMediatR(cfg => {
+        cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    });
     #endregion
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Demo.Application.Features.Books.Commands;
 using Demo.Application.Services;
 using Demo.Domain;
 using Demo.Domain.Repositories;
@@ -43,6 +44,10 @@ namespace Demo.Web
 
             builder.RegisterType<AuthorService>().As<IAuthorService>()
                .InstancePerLifetimeScope();
+
+            builder.RegisterType<BookAddCommandHandler>().AsSelf();
+
+            builder.RegisterType<BookAddCommand>().AsSelf();
 
             base.Load(builder);
         }
