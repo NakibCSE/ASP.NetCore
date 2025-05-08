@@ -10,6 +10,7 @@ using Serilog.Events;
 using System.Reflection;
 using Demo.Infrastructure;
 using Autofac.Core;
+using Demo.Application.Features.Books.Commands;
 
 #region Bootstrap logger
 var configuration = new ConfigurationBuilder()
@@ -54,9 +55,10 @@ try
     );
     #endregion
 
-    #region mediatR configuration 
+    #region MediatR Configuration
     builder.Services.AddMediatR(cfg => {
-        cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+        cfg.RegisterServicesFromAssembly(migrationAssembly);
+        cfg.RegisterServicesFromAssembly(typeof(BookAddCommand).Assembly);
     });
     #endregion
 

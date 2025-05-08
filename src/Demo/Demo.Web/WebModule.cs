@@ -45,8 +45,6 @@ namespace Demo.Web
             builder.RegisterType<AuthorService>().As<IAuthorService>()
                .InstancePerLifetimeScope();
 
-            builder.RegisterType<BookAddCommandHandler>().AsSelf();
-
             builder.RegisterType<BookAddCommand>().AsSelf();
 
             base.Load(builder);
