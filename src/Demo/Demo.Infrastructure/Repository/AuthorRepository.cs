@@ -1,4 +1,5 @@
-﻿using Demo.Domain.Entities;
+﻿using Demo.Domain;
+using Demo.Domain.Entities;
 using Demo.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,11 @@ namespace Demo.Infrastructure.Repository
         public AuthorRepository(ApplicationDbContext context) : base(context)
         {
             _dbContext = context;
+        }
+
+        public (IList<Author> data, int total, int totalDisplay) GetPagedAuthors(int pageIndex, int pageSize, string? order, DataTablesSearch search)
+        {
+            GetDynamic(x = );
         }
     }
 }

@@ -37,7 +37,8 @@ namespace Demo.Web.Areas.Admin.Controllers
         }
         public JsonResult GetAuthorJsonData(AuthorListModel model)
         {
-            throw new NotImplementedException();
+            var data = model.GetAuthors(_authorService);
+            return Json(data);
         }
     }
 }
