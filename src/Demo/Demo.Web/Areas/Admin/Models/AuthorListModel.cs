@@ -8,7 +8,16 @@ namespace Demo.Web.Areas.Admin.Models
     {
         public object GetAuthors(IAuthorService authorService)
         {
-            var result = authorService.GetAuthors(PageIndex, PageSize, FormatSortExpression("Name"), Search);
+            try
+            {
+                var result = authorService.GetAuthors(PageIndex, PageSize, FormatSortExpression("Name"), Search);
+                return EmptyResult;
+            }
+            catch
+            {
+                return EmptyResult;
+            }
+            
         }
     }
 }
