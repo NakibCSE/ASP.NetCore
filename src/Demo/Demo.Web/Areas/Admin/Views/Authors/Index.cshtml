@@ -41,6 +41,8 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Biography</th>
+                                    <th>Rating</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -49,6 +51,8 @@
                             <tfoot>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Biography</th>
+                                    <th>Rating</th>
                                     <th>Actions</th>
                                 </tr>
                             </tfoot>
@@ -86,7 +90,7 @@
                 columnDefs: [
                     {
                         orderable: false,
-                        targets: 1,
+                        targets: 3,
                         render: function (data, type, row) {
                             console.log(type);
                             return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/author/update/${data}'" value='${data}'>
