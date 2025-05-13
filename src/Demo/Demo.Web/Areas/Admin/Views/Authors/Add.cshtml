@@ -55,13 +55,33 @@
                             <!--begin::Body-->
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label asp-for="Name" for="exampleInputEmail1" class="form-label">Author Name</label>
+                                    <label asp-for="Name" class="form-label">Author Name</label>
                                     <input type="text"
                                            class="form-control"
                                            asp-for="Name"
-                                           aria-describedby="titlelHelp" />
-                                    <div id="titlelHelp" class="form-text">
+                                           aria-describedby="namelHelp" />
+                                    <div id="namelHelp" class="form-text">
                                         Provide a friendly Name
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Biography" class="form-label">Author Biography</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           asp-for="Biography"
+                                           aria-describedby="biographylHelp" />
+                                    <div id="biographylHelp" class="form-text">
+                                        Provide a Biography
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Rating"  class="form-label">Provide a rating</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           asp-for="Rating"
+                                           aria-describedby="ratinglHelp" />
+                                    <div id="ratinglHelp" class="form-text">
+                                        Provide a rating
                                     </div>
                                 </div>
                                

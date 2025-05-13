@@ -30,7 +30,11 @@ namespace Demo.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _authorService.AddAuthor(new Author { Name = model.Name, Biography = string.Empty, Rating = 1.0 });
+                _authorService.AddAuthor(new Author 
+                { Name = model.Name, 
+                  Biography = model.Biography,
+                  Rating =model.Rating
+                });
             }
             return View(model);
         }
