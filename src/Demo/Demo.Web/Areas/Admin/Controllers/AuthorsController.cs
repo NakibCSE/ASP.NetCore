@@ -1,4 +1,5 @@
-﻿using Demo.Application.Services;
+﻿using AutoMapper;
+using Demo.Application.Services;
 using Demo.Domain;
 using Demo.Domain.Entities;
 using Demo.Domain.Services;
@@ -9,10 +10,12 @@ using System.Web;
 namespace Demo.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AuthorsController(ILogger<AuthorsController> logger, IAuthorService authorService) : Controller
+    public class AuthorsController(ILogger<AuthorsController> logger, 
+        IAuthorService authorService, IMapper mapper) : Controller
     {
         private readonly ILogger<AuthorsController> _logger = logger; 
         private readonly IAuthorService _authorService = authorService;
+        private readonly IMapper _mapper = mapper;
 
         public IActionResult Index()
         {
@@ -28,13 +31,19 @@ namespace Demo.Web.Areas.Admin.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Add(AddAuthorModel model)
         {
+        
             if (ModelState.IsValid)
             {
-                _authorService.AddAuthor(new Author 
-                { Name = model.Name, 
-                  Biography = model.Biography,
-                  Rating =model.Rating
-                });
+                try
+                {
+                    var author = _mapper.Map<Author>(model);
+                    author.ID = IdentityGenerator.NewSequentialGuid();
+                    _authorService.AddAuthor(author);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to add author");
+                }
             }
             return View(model);
         }
