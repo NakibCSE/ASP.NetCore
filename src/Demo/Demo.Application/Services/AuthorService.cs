@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.Domain.Services;
+using Demo.Application.Exceptions;
 
 namespace Demo.Application.Services
 {
@@ -18,8 +19,14 @@ namespace Demo.Application.Services
         }
         public void AddAuthor(Author author)
         {
-            _applicationUnitOfWork.AuthorRepository.Add(author);
-            _applicationUnitOfWork.Save();
+            if (!_applicationUnitOfWork.AuthorRepository.IsNameDuplicate(author.Name))
+            {
+                _applicationUnitOfWork.AuthorRepository.Add(author);
+                _applicationUnitOfWork.Save();
+            }
+            else
+                throw new DuplicateAuthorNameException();
+            
         }
 
         public (IList<Author> data, int total, int totalDisplay) GetAuthors(int pageIndex, int pageSize, string? order, DataTablesSearch search)
