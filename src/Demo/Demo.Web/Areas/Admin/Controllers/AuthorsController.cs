@@ -51,6 +51,7 @@ namespace Demo.Web.Areas.Admin.Controllers
                 }
                 catch(DuplicateAuthorNameException de)
                 {
+                    ModelState.AddModelError("DuplicateAuthor", de.Message);
                     TempData.Put("ResponseMessage", new ResponseModel
                     {
                         Message = de.Message,
@@ -71,6 +72,13 @@ namespace Demo.Web.Areas.Admin.Controllers
             }
             return View(model);
         }
+
+        public IActionResult Update()
+        {
+            var model = new UpdateAuthorModel();
+            return View(model);
+        }
+
 
         [HttpPost]
         public JsonResult GetAuthorJsonData([FromBody] AuthorListModel model)
