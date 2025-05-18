@@ -1,7 +1,110 @@
-﻿
+﻿@model UpdateAuthorModel
 @{
-    ViewData["Title"] = "Update";
+    ViewData["Title"] = "Add Author";
 }
 
-<h1>Update</h1>
+<!--begin::App Main-->
+<main class="app-main">
+    <!--begin::App Content Header-->
+    <div class="app-content-header">
+        <!--begin::Container-->
+        <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row">
+                <div class="col-sm-6"><h3 class="mb-0">Update Author</h3></div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-end">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Update Author</li>
+                    </ol>
+                </div>
+            </div>
+            <!--end::Row-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::App Content Header-->
+    <!--begin::App Content-->
+    <div class="app-content">
+        <!--begin::Container-->
+        <div class="container-fluid">
+            <!--begin::Row-->
+            <div class="row g-4">
+                <!--begin::Col-->
+                <div class="col-12">
+                    <partial name="_ResponsePartial" />
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col-md-6">
+                    <!--begin::Quick Example-->
+                    <div class="card card-primary card-outline mb-4">
+                        <!--begin::Header-->
+                        <div class="card-header"><div class="card-title">Update Author</div></div>
+                        <!--end::Header-->
+                        <!--begin::Form-->
+                        <form asp-antiforgery="true" asp-area="Admin" asp-controller="Authors" asp-action="Update" method="post">
+                            <!--begin::Body-->
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <input type="hidden" asp-for="Id"/>
+                                    <label asp-for="Name" class="form-label">Author Name</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           asp-for="Name"
+                                           aria-describedby="namelHelp" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                    <div id="namelHelp" class="form-text">
+                                        Provide a friendly Name
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Biography" class="form-label">Author Biography</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           asp-for="Biography"
+                                           aria-describedby="biographylHelp" />
+                                    <span asp-validation-for="Biography" class="text-danger"></span>
+                                    <div id="biographylHelp" class="form-text">
+                                        Provide a Biography
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Rating" class="form-label">Provide a rating</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           asp-for="Rating"
+                                           aria-describedby="ratinglHelp" />
+                                    <span asp-validation-for="Rating" class="text-danger"></span>
+                                    <div id="ratinglHelp" class="form-text">
+                                        Provide a rating
+                                    </div>
+                                </div>
 
+                            </div>
+                            <!--end::Body-->
+                            <!--begin::Footer-->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            <!--end::Footer-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Quick Example-->
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Row-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::App Content-->
+</main>
+<!--end::App Main-->
+@section Scripts
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

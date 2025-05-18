@@ -79,6 +79,31 @@ namespace Demo.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                _authorService.DeleteAuthor(id);
+
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Author Deleted",
+                    Type = ResponseTypes.Success
+                });
+            }
+            catch(Exception ex) 
+            {
+                _logger.LogError(ex, "Failed to delete author");
+
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Failed to add author",
+                    Type = ResponseTypes.Danger
+                });
+            }
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         public JsonResult GetAuthorJsonData([FromBody] AuthorListModel model)
@@ -91,7 +116,7 @@ namespace Demo.Web.Areas.Admin.Controllers
                 var authors = new
                 {
                     recordsTotal = total,
-                    recordesFiltered = totalDisplay,
+                    recordsFiltered = totalDisplay,
                     data = (from record in data
                             select new string[]
                             {
