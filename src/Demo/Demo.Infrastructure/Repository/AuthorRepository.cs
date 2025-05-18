@@ -24,13 +24,14 @@ namespace Demo.Infrastructure.Repository
         }
         public (IList<Author> data, int total, int totalDisplay) GetPagedAuthors(int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {
-            if(string.IsNullOrWhiteSpace(search.Value))
+            if (string.IsNullOrWhiteSpace(search.Value))
             {
                 return GetDynamic(null, order, null, pageIndex, pageSize, true);
             }
             else
             {
-                return GetDynamic(x => x.Name.Contains(search.Value), order, null, pageIndex, pageSize, true);
+                return GetDynamic(x => x.Name.Contains(search.Value) || x.Biography.Contains(search.Value) 
+                , order, null, pageIndex, pageSize, true);
             }
         }
     }
