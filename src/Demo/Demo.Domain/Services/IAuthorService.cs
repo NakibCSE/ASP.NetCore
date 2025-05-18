@@ -11,7 +11,9 @@ namespace Demo.Domain.Services
     {
         void AddAuthor(Author author);
         void DeleteAuthor(Guid id);
+        Author GetAuthor(Guid id);
         (IList<Author> data, int total, int totalDisplay) GetAuthors(int pageIndex, int pageSize, 
             string? order, DataTablesSearch search);
+        void Update(Author author);
     }
 }
