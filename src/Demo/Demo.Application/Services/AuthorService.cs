@@ -47,8 +47,13 @@ namespace Demo.Application.Services
 
         public void Update(Author author)
         {
-            _applicationUnitOfWork.AuthorRepository.Update(author);
-            _applicationUnitOfWork.Save();
+            if (!_applicationUnitOfWork.AuthorRepository.IsNameDuplicate(author.Name, author.ID))
+            {
+                _applicationUnitOfWork.AuthorRepository.Update(author);
+                _applicationUnitOfWork.Save();
+            }
+            else
+                throw new DuplicateAuthorNameException();
         }
     }
 }
