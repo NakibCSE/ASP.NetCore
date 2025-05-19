@@ -1,4 +1,5 @@
-﻿using Demo.Domain.Entities;
+﻿using Demo.Domain.Dtos;
+using Demo.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Demo.Domain.Services
         Author GetAuthor(Guid id);
         (IList<Author> data, int total, int totalDisplay) GetAuthors(int pageIndex, int pageSize, 
             string? order, DataTablesSearch search);
+        Task<(IList<Author> data, int total, int totalDisplay)> GetAuthorsSP(int pageIndex, int pageSize,
+           string? order, AuthorSearchDto search);
         void Update(Author author);
     }
 }

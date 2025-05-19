@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Demo.Domain.Services;
 using Demo.Application.Exceptions;
+using Demo.Domain.Dtos;
 
 namespace Demo.Application.Services
 {
@@ -43,6 +44,16 @@ namespace Demo.Application.Services
         public (IList<Author> data, int total, int totalDisplay) GetAuthors(int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {
             return _applicationUnitOfWork.AuthorRepository.GetPagedAuthors(pageIndex, pageSize, order, search);
+        }
+
+        public async Task<(IList<Author> data, int total, int totalDisplay)> GetAuthorsSP(int pageIndex, int pageSize, string? order, AuthorSearchDto search)
+        {
+            return await _applicationUnitOfWork.GetAuthorsSP(pageIndex, pageSize, order, search);
+        }
+
+        public (IList<Author> data, int total, int totalDisplay) GetAuthorsSP(int pageIndex, int pageSize, string? order, DataTablesSearch search)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Author author)

@@ -2,11 +2,13 @@
 using Demo.Application.Exceptions;
 using Demo.Application.Services;
 using Demo.Domain;
+using Demo.Domain.Dtos;
 using Demo.Domain.Entities;
 using Demo.Domain.Services;
 using Demo.Infrastructure;
 using Demo.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Demo.Web.Areas.Admin.Controllers
@@ -179,6 +181,38 @@ namespace Demo.Web.Areas.Admin.Controllers
 
             }
             catch(Exception ex)
+            {
+                _logger.LogError(ex, "There was a problem in getting authors");
+                return Json(DataTables.EmptyResult);
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetAuthorJsonDataSP([FromBody] AuthorListModel model)
+        {
+            try
+            {
+                var searchDto = _mapper.Map<AuthorSearchDto>(model.SearchItem);
+                var (data, total, totalDisplay) = await _authorService.GetAuthorsSP(model.PageIndex, model.PageSize,
+                    model.FormatSortExpression("Name", "Biography", "Rating", "ID"), searchDto);
+
+                var authors = new
+                {
+                    recordsTotal = total,
+                    recordsFiltered = totalDisplay,
+                    data = (from record in data
+                            select new string[]
+                            {
+                                    HttpUtility.HtmlEncode(record.Name),
+                                    HttpUtility.HtmlEncode(record.Biography),
+                                    record.Rating.ToString(),
+                                    record.ID.ToString()
+                            }).ToArray()
+                };
+                return Json(authors);
+
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "There was a problem in getting authors");
                 return Json(DataTables.EmptyResult);
