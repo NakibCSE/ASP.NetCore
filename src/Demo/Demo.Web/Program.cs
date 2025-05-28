@@ -10,6 +10,7 @@ using Serilog.Events;
 using System.Reflection;
 using Demo.Infrastructure;
 using Autofac.Core;
+using Demo.Infrastructure.Extensions;
 using Demo.Application.Features.Books.Commands;
 
 #region Bootstrap logger
@@ -66,12 +67,15 @@ try
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     #endregion
 
+    #region Identity Configuration
+    builder.Services.AddIdentity();
+    #endregion
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+
     builder.Services.AddControllersWithViews();
 
     //Register the dependency

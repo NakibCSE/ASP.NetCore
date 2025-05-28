@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Demo.Infrastructure.Identity
 {
-    public class ApplicatoinRoleManager 
+    public class ApplicationRoleManager 
         : RoleManager<ApplicationRole>
     {
-        public ApplicatoinRoleManager(IRoleStore<ApplicationRole> store,
+        public ApplicationRoleManager(IRoleStore<ApplicationRole> store,
            IEnumerable<IRoleValidator<ApplicationRole>> roleValidators,
            ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors,
            ILogger<RoleManager<ApplicationRole>> logger)
