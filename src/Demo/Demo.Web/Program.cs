@@ -77,6 +77,7 @@ try
 
 
     builder.Services.AddControllersWithViews();
+    builder.Services.AddRazorPages();
 
     //Register the dependency
     //builder.Services.AddTransient<IItem, Item>();
