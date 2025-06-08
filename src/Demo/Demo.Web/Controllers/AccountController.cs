@@ -1,10 +1,11 @@
 ﻿using Demo.Infrastructure.Identity;
-using Demo.Web.Areas.Identity.Pages.Account;
 using Demo.Web.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Text;
 using System.Text.Encodings.Web;
 
@@ -93,16 +94,65 @@ namespace Demo.Web.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Login()
+        public async Task<IActionResult> Login(string returnUrl = null)
         {
-            return View();
+            var model = new LoginModel();
+            if (!string.IsNullOrEmpty(model.ErrorMessage))
+            {
+                ModelState.AddModelError(string.Empty, model.ErrorMessage);
+            }
+            
+            model.ReturnUrl ??= Url.Content("~/");
+
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            model.ReturnUrl = returnUrl;
+
+            return View(model);
         }
 
         [AllowAnonymous, HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Login(Demo.Web.Models.LoginModel model)
+        public async Task<IActionResult> Login(LoginModel model)
         {
+            model.ReturnUrl ??= Url.Content("~/");
+
+            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            if (ModelState.IsValid)
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(model.Email,
+                    model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    return LocalRedirect(model.ReturnUrl);
+                }
+                if (result.RequiresTwoFactor)
+                {
+                    return RedirectToPage("./LoginWith2fa", new
+                    {
+                        ReturnUrl = model.ReturnUrl,
+                        RememberMe = model.RememberMe
+                    });
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning("User account locked out.");
+                    return RedirectToPage("./Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
+            }
             return View(model);
         }
+        
         [Authorize]
         public IActionResult Logout()
         {
@@ -118,8 +168,7 @@ namespace Demo.Web.Controllers
             catch
             {
                 throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
-                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively ");
             }
         }
 
