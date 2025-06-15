@@ -60,6 +60,8 @@ namespace Demo.Web.Controllers
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
+                await _userManager.AddToRoleAsync(user, "Author");
+
                 if (result.Succeeded)
                 {
                     var userId = await _userManager.GetUserIdAsync(user);
@@ -94,7 +96,7 @@ namespace Demo.Web.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
+        public async Task<IActionResult> LoginAsync(string returnUrl = null)
         {
             var model = new LoginModel();
             if (!string.IsNullOrEmpty(model.ErrorMessage))
@@ -115,7 +117,7 @@ namespace Demo.Web.Controllers
         }
 
         [AllowAnonymous, HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> LoginAsync(LoginModel model)
         {
             model.ReturnUrl ??= Url.Content("~/");
 
@@ -152,11 +154,16 @@ namespace Demo.Web.Controllers
             }
             return View(model);
         }
-        
+
         [Authorize]
-        public IActionResult Logout()
+        public async Task<IActionResult> LogoutAsync(string returnUrl = null)
         {
-            return RedirectToAction("Index", "Home");
+            await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            returnUrl ??= Url.Content("~/");
+
+            return LocalRedirect(returnUrl);
         }
 
         private ApplicationUser CreateUser()
