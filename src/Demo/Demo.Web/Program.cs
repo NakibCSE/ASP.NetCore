@@ -1,17 +1,18 @@
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
+using Autofac.Core;
+using Autofac.Extensions.DependencyInjection;
+using Demo.Application.Features.Books.Commands;
+using Demo.Domain;
+using Demo.Infrastructure;
+using Demo.Infrastructure.Extensions;
+using Demo.Web;
 using Demo.Web.Data;
 using Demo.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Demo.Web;
 using Serilog;
 using Serilog.Events;
 using System.Reflection;
-using Demo.Infrastructure;
-using Autofac.Core;
-using Demo.Infrastructure.Extensions;
-using Demo.Application.Features.Books.Commands;
 
 #region Bootstrap logger
 var configuration = new ConfigurationBuilder()
@@ -81,6 +82,8 @@ try
 
     //Register the dependency
     //builder.Services.AddTransient<IItem, Item>();
+
+    builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
     var app = builder.Build();
 

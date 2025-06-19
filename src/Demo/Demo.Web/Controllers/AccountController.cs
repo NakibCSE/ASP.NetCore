@@ -1,4 +1,5 @@
-﻿using Demo.Infrastructure.Identity;
+﻿using Demo.Domain.Utilities;
+using Demo.Infrastructure.Identity;
 using Demo.Web.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -18,18 +19,21 @@ namespace Demo.Web.Controllers
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<Demo.Web.Models.RegisterModel> _logger;
+        private readonly IEmailUtility _emailUtility;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger,
+            IEmailUtility emailUtility)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
+            _emailUtility = emailUtility;
         }
 
         [AllowAnonymous]
@@ -166,6 +170,10 @@ namespace Demo.Web.Controllers
             return LocalRedirect(returnUrl);
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
         private ApplicationUser CreateUser()
         {
             try
@@ -187,5 +195,7 @@ namespace Demo.Web.Controllers
             }
             return (IUserEmailStore<ApplicationUser>)_userStore;
         }
+
+
     }
 }

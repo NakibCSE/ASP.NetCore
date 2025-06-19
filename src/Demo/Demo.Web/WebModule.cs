@@ -4,8 +4,10 @@ using Demo.Application.Services;
 using Demo.Domain;
 using Demo.Domain.Repositories;
 using Demo.Domain.Services;
+using Demo.Domain.Utilities;
 using Demo.Infrastructure;
 using Demo.Infrastructure.Repository;
+using Demo.Infrastructure.Utilities;
 using Demo.Web.Data;
 using Demo.Web.Models;
 
@@ -44,6 +46,9 @@ namespace Demo.Web
 
             builder.RegisterType<AuthorService>().As<IAuthorService>()
                .InstancePerLifetimeScope();
+
+            builder.RegisterType<EmailUtility>().As<IEmailUtility>()
+              .InstancePerLifetimeScope();
 
             builder.RegisterType<BookAddCommand>().AsSelf();
 

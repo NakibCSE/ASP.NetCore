@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label asp-for="Password" class="form-label">User Password</label>
-                                    <input type="text"
+                                    <input type="password"
                                            class="form-control"
                                            asp-for="Password"
                                            aria-describedby="passwordHelp" />
@@ -70,14 +70,25 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label asp-for="ConfirmPassword" class="form-label">User Password</label>
-                                    <input type="text"
+                                    <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                                    <input type="password"
                                            class="form-control"
                                            asp-for="ConfirmPassword"
                                            aria-describedby="ConfirmPasswordHelp" />
                                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                     <div id="ConfirmPasswordHelp" class="form-text">
                                         Enter the same password again
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="Role" class="form-label">Role</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           asp-for="Role"
+                                           aria-describedby="roleHelp" />
+                                    <span asp-validation-for="Role" class="text-danger"></span>
+                                    <div id="roleHelp" class="form-text">
+                                       Enter the role
                                     </div>
                                 </div>
 
