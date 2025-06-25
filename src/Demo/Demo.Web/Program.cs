@@ -72,6 +72,10 @@ try
     builder.Services.AddIdentity();
     #endregion
 
+    #region Authorizatin Configuration
+    builder.Services.AddPolicy();
+    #endregion
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -102,6 +106,7 @@ try
     app.UseHttpsRedirection();
     app.UseRouting();
 
+    app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapStaticAssets();
