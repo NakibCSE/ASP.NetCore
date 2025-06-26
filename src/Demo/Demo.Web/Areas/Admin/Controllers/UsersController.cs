@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Web.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize(Roles = "Admin")]
+    [Area("Admin"), Authorize(Policy = "UserAddPermission")]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

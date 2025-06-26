@@ -55,6 +55,10 @@ namespace Demo.Infrastructure.Extensions
                     policy.RequireRole("HR");
                     policy.RequireRole("Author");
                 });
+                options.AddPolicy("UserAddPermission", policy =>
+                {
+                    policy.RequireClaim("create_user", "allowed");
+                });
             });
         }
     }
