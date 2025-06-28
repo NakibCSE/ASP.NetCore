@@ -65,6 +65,8 @@ namespace Demo.Web.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 await _userManager.AddToRoleAsync(user, "Author");
+                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("age",
+                    (DateTime.UtcNow.Subtract(model.DateOfBirth).Days / 365).ToString()));
 
                 if (result.Succeeded)
                 {

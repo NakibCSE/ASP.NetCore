@@ -1,4 +1,5 @@
 ﻿using Demo.Infrastructure.Identity;
+using Demo.Infrastructure.Identity.Requirements;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -59,7 +60,12 @@ namespace Demo.Infrastructure.Extensions
                 {
                     policy.RequireClaim("create_user", "allowed");
                 });
+                options.AddPolicy("AgeRestriction", policy =>
+                {
+                    policy.Requirements.Add(new AgeRequirement());
+                });
             });
+            services.AddSingleton<IAuthorizationHandler, AgeRequirementHandler>();
         }
     }
 }

@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace Demo.Infrastructure.Seeds
 {
-    public class ClaimSeed
+    public static class ClaimSeed
     {
-        public ApplicationUserClaim[] GetClaims()
+        public static ApplicationUserClaim[] GetClaims()
         {
             return [
                 new ApplicationUserClaim
                 {
+                    Id = -1,
                     UserId = new Guid("83a74dcd-28de-4e38-d4c8-08ddacc2647a"),
                     ClaimType = "create_user",
                     ClaimValue = "allowed"

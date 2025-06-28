@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Demo.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Web.Controllers
@@ -23,6 +24,12 @@ namespace Demo.Web.Controllers
             var price = _product.getPrice();
             Console.WriteLine(price);
             Console.WriteLine("I am from IAction result index page");
+            return View();
+        }
+
+        [Authorize(Policy = "AgeRestriction")]
+        public IActionResult AgeTest()
+        {
             return View();
         }
 

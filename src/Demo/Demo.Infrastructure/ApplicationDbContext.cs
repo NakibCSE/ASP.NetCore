@@ -36,7 +36,7 @@ namespace Demo.Infrastructure
         {
            
             builder.Entity<ApplicationRole>().HasData(RoleSeed.GetRoles());
-
+            builder.Entity<ApplicationUserClaim>().HasData(ClaimSeed.GetClaims());
             base.OnModelCreating(builder);
         }
     }

@@ -33,6 +33,8 @@ namespace Demo.Web.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        public DateTime DateOfBirth { get; set; }
         public string? ReturnUrl { get; set; }
         public IList<AuthenticationScheme>? ExternalLogins { get; set; }
     }
