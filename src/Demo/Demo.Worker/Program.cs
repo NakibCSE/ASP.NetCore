@@ -1,11 +1,12 @@
-using Autofac.Extensions.DependencyInjection;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Demo.Worker;
 using Serilog;
 
 var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false)
     .AddEnvironmentVariables()
     .Build();
+
 var connectionString = configuration.GetConnectionString("DefaultConnection");
 var migrationAssemblyName = typeof(Worker).Assembly.FullName;
 
