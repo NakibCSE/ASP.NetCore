@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{02EA681E-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Applicatin.Tests", "..\..\tests\Demo.Applicatin.Tests\Demo.Applicatin.Tests.csproj", "{3B1AB144-5E24-49BD-A71E-2DA33C85180D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AWSExamples", "AWSExamples\AWSExamples.csproj", "{227BC95A-C80D-496A-B948-D1EFD2764BD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{3B1AB144-5E24-49BD-A71E-2DA33C85180D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B1AB144-5E24-49BD-A71E-2DA33C85180D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B1AB144-5E24-49BD-A71E-2DA33C85180D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{227BC95A-C80D-496A-B948-D1EFD2764BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{227BC95A-C80D-496A-B948-D1EFD2764BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{227BC95A-C80D-496A-B948-D1EFD2764BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{227BC95A-C80D-496A-B948-D1EFD2764BD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
