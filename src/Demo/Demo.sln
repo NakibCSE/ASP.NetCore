@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Applicatin.Tests", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AWSExamples", "AWSExamples\AWSExamples.csproj", "{227BC95A-C80D-496A-B948-D1EFD2764BD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.API", "Demo.API\Demo.API.csproj", "{457F25B7-9489-4DA9-8956-E96C309EA6C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{227BC95A-C80D-496A-B948-D1EFD2764BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{227BC95A-C80D-496A-B948-D1EFD2764BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{227BC95A-C80D-496A-B948-D1EFD2764BD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{457F25B7-9489-4DA9-8956-E96C309EA6C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{457F25B7-9489-4DA9-8956-E96C309EA6C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{457F25B7-9489-4DA9-8956-E96C309EA6C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{457F25B7-9489-4DA9-8956-E96C309EA6C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
