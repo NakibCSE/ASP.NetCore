@@ -1,10 +1,12 @@
 ﻿using Demo.Infrastructure.Identity;
 using Demo.Infrastructure.Identity.Requirements;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,5 +69,26 @@ namespace Demo.Infrastructure.Extensions
             });
             services.AddSingleton<IAuthorizationHandler, AgeRequirementHandler>();
         }
+        public static void AddJwtAuthentication(this IServiceCollection services,
+            string key, string issuer, string audience)
+        {
+            services.AddAuthentication()
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidIssuer = issuer,
+                        ValidAudience = audience
+                    };
+                });
+        }
+
+
     }
 }

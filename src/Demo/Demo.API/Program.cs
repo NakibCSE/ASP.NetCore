@@ -21,15 +21,15 @@ try
     Log.Information("Application Starting...");
 
     var builder = WebApplication.CreateBuilder(args);
-
+    #region Serilog configuration
     builder.Host.UseSerilog((ctx, lc) => lc
         .MinimumLevel.Debug()
         .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(builder.Configuration));
+    #endregion
 
-    // Add services to the container.
-
+    #region Autofac Configuration
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
     var migrationAssembly = Assembly.GetExecutingAssembly().FullName;
 
@@ -39,10 +39,11 @@ try
         containerBuilder.RegisterModule(new ApiModule(connectionString,
             migrationAssembly));
     });
+    #endregion
 
+    #region Automapper Configuration
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-    // Add services to the container.
+    #endregion
 
     builder.Services.AddControllers();
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
