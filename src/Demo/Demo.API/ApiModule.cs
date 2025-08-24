@@ -1,5 +1,9 @@
 ﻿using Autofac;
+using Demo.Domain;
+using Demo.Domain.Repositories;
 using Demo.Infrastructure;
+using Demo.Infrastructure.Identity;
+using Demo.Infrastructure.Repository;
 
 namespace Demo.Api
 {
@@ -20,6 +24,21 @@ namespace Demo.Api
                 .WithParameter("connectionString", _connectionString)
                 .WithParameter("migrationAssembly", _migrationAssembly)
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<ApplicationUnitOfWork>()
+              .As<IApplicationUnitOfWork>()
+              .InstancePerLifetimeScope();
+
+            builder.RegisterType<BookRepository>().As<IBookRepository>()
+               .InstancePerLifetimeScope();
+
+            builder.RegisterType<AuthorRepository>().As<IAuthorRepository>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<TokenService>().As<ITokenService>()
+                .InstancePerLifetimeScope();
+
+            base.Load(builder);
         }
     }
 }

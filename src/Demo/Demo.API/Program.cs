@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using Demo.Api;
+using Demo.Infrastructure.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
@@ -45,6 +46,16 @@ try
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     #endregion
 
+    #region Identity Configuration
+    builder.Services.AddIdentity();
+    builder.Services.AddJwtAuthentication(
+        builder.Configuration["Jwt:Key"],
+        builder.Configuration["Jwt:Issuer"],
+        builder.Configuration["Jwt:Audience"]
+    );
+    builder.Services.AddJwtAuthorization();
+    #endregion
+
     builder.Services.AddControllers();
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
     builder.Services.AddOpenApi();
@@ -58,7 +69,7 @@ try
     }
 
     app.UseHttpsRedirection();
-
+    app.UseCors();
     app.UseAuthorization();
 
     app.MapControllers();
